@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A handwritten-style travel newsletter recounting a trip through Cartagena, Palenque, and Minca." />
+  <title>Letter Home from Colombia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --paper: #fbf4ea;
+      --paper-deep: #f2e4d2;
+      --ink: #332720;
+      --ink-soft: #705e4f;
+      --accent: #bf6736;
+      --accent-soft: rgba(191, 103, 54, 0.12);
+      --sea: #2e817f;
+      --border: rgba(82, 54, 34, 0.14);
+      --shadow: 0 18px 40px rgba(72, 45, 28, 0.12);
+      --font-body: 'Newsreader', Georgia, serif;
+      --font-hand: 'Caveat', cursive;
+    }
+
+    [data-theme="dark"] {
+      --paper: #211913;
+      --paper-deep: #2a2019;
+      --ink: #f3e8da;
+      --ink-soft: #ccb9a8;
+      --accent: #ec9560;
+      --accent-soft: rgba(236, 149, 96, 0.12);
+      --sea: #67b6ad;
+      --border: rgba(249, 234, 221, 0.12);
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) {
+        --paper: #211913;
+        --paper-deep: #2a2019;
+        --ink: #f3e8da;
+        --ink-soft: #ccb9a8;
+        --accent: #ec9560;
+        --accent-soft: rgba(236, 149, 96, 0.12);
+        --sea: #67b6ad;
+        --border: rgba(249, 234, 221, 0.12);
+        --shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top right, rgba(191, 103, 54, 0.08), transparent 24%),
+        radial-gradient(circle at left 20%, rgba(46, 129, 127, 0.08), transparent 26%),
+        linear-gradient(180deg, var(--paper-deep), var(--paper));
+      color: var(--ink);
+      font-family: var(--font-body);
+      line-height: 1.85;
+      padding: 24px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 16px;
+      top: -48px;
+      background: var(--accent);
+      color: #fff7ef;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+    }
+
+    .skip-link:focus { top: 16px; }
+
+    .page {
+      width: min(100%, 860px);
+      margin: 0 auto;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .kicker {
+      font-family: var(--font-hand);
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      color: var(--sea);
+      letter-spacing: 0.01em;
+    }
+
+    .theme-toggle {
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: color-mix(in srgb, var(--paper) 84%, white 16%);
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .letter {
+      background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 94%, white 6%), var(--paper));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      padding: clamp(24px, 5vw, 56px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(191, 103, 54, 0.045) 1px, transparent 1px);
+      background-size: 100% 2.05em;
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .letter-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .dateline {
+      font-family: var(--font-hand);
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .greeting,
+    .signoff {
+      font-family: var(--font-hand);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      line-height: 1.1;
+      margin: 0 0 14px;
+      color: var(--ink);
+    }
+
+    .letter p {
+      margin: 0 0 1.05em;
+      font-size: clamp(1.15rem, 1.05rem + 0.25vw, 1.32rem);
+      max-width: 34em;
+    }
+
+    .letter p:last-of-type { margin-bottom: 0; }
+
+    .letter em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .divider {
+      width: 84px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 24px 0 18px;
+      border-radius: 999px;
+    }
+
+    .caption-strip {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px dashed var(--border);
+      color: var(--ink-soft);
+      font-size: 0.97rem;
+    }
+
+    .caption-strip strong {
+      display: inline-block;
+      margin-right: 6px;
+      color: var(--sea);
+      font-family: var(--font-hand);
+      font-size: 1.5rem;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+
+    .caption-strip span {
+      display: inline;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      color: var(--ink-soft);
+      font-size: 0.98rem;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      body { padding: 12px; }
+      .topbar { margin-bottom: 12px; }
+      .letter { border-radius: 18px; padding: 22px 18px 26px; }
+      .letter::before { background-size: 100% 2em; }
+      .letter p { font-size: 1.08rem; }
+      .kicker { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#letter">Skip to letter</a>
+  <div class="page">
+    <div class="topbar" aria-label="Letter controls">
+      <div class="kicker">A note home from Colombia</div>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Switch theme"></button>
+    </div>
+
+    <main class="letter" id="letter">
+      <div class="letter-inner">
+        <div class="dateline">Cartagena, Palenque &amp; Minca</div>
+        <p class="greeting">Dear Friends &amp; Family,</p>
+
+        <p>Inspired by the travel logs my grandfather sends out, I’ve decided to do the same! Hopefully I can stay consistent with it.</p>
+
+        <p>I began this little adventure in Ft. Lauderdale with a brief visit to my mom and, before I knew it, found myself touching down in Cartagena, Colombia.</p>
+
+        <p>Cartagena greeted me with color, heat, and personality. My first day included a stroll through the walled city, a long ATM battle, and some interactions with <em>overly enthusiastic</em> locals. Once night fell, I checked into my hostel, made friends with local street performers, and wandered around Getsemaní with Natalie, a local engineering student who doubled as my personal tour guide. Not a bad welcome.</p>
+
+        <p>The next day, I decided to live like a local and take the bus—immediately missed my stop—and arrived late to meet Angie for a trip to Mercado Bazurto. The market was intense, vibrant, and full of incredible food…including a seafood feast (with turtle) that somehow turned into a financial negotiation involving multiple ATMs, motorbikes, and a very patient waitress. I definitely overpaid, but it felt worth it for the experience (and the delicious seafood). We wrapped up the afternoon with views from a historic church at the top of the city, and later that night, I went dancing with my hostel friend David—splitting time between reggaeton upstairs and salsa downstairs, where I humbly learned I can’t keep up with Colombians on the dance floor.</p>
+
+        <p>One of the highlights was a day trip to Palenque, the first free African town in the Americas, founded in 1603 (over 200 years before Haiti’s independence). Our guide, Romeo (who speaks six languages, casually), filled the day with music, history, and energy. We learned about resistance, culture, and community—and naturally, I ended up teaching someone how to stand on my shoulders. There was dancing, incredible food, and a deep sense of history that made it one of the most meaningful days of the trip.</p>
+
+        <p>From there, I made my way to Minca in the mountains—a peaceful contrast to Cartagena. Think jungle, waterfalls, and coffee farms. I rode a motorcycle along dirt roads, ziplined through the forest, swam in freezing mountain water, and tasted raw cacao that somehow ruined regular chocolate for me.</p>
+
+        <p>The final stretch involved a heroic amount of travel—buses, taxis, more motorcycles—just to make it back to Cartagena in time. Naturally, I celebrated by going out dancing one last time before catching my flight home on very little sleep.</p>
+
+        <p>All in all, a trip full of stories, characters, minor mishaps, and a lot of fun. Colombia is vibrant and welcoming, and I’m very glad I went. I’m now taking a slow weekend, catching up with friends in the city, and getting ready for my new job this coming Monday.</p>
+
+        <p>More soon.</p>
+
+        <div class="divider" aria-hidden="true"></div>
+        <p class="signoff">Gleefully,<br>Maverick 😁</p>
+
+        <div class="caption-strip" aria-label="Referenced photo captions">
+          <strong>Photo notes:</strong>
+          <span>Getsemaní during the day; My plate of food at the market; Another photo of the market; Casa de la Popa at the top of the hill; Cartagena's skyline; Me and my Colombian friends; Palenque; Teaching the locals how to stand on my shoulders; Sunset from Minca; A friendly bird in Minca; Views from the mountains in Minca; Me with a cacao face mask; Selfie on a motorcycle.</span>
+        </div>
+      </div>
+    </main>
+
+    <div class="footer-note">Kept intentionally simple so it reads like one continuous, personal newsletter rather than a segmented webpage.</div>
+  </div>
+
+  <script>
+    (function () {
+      const root = document.documentElement;
+      const btn = document.querySelector('[data-theme-toggle]');
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+      function icon(mode) {
+        return mode === 'dark'
+          ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><path d="M12 1v2"></path><path d="M12 21v2"></path><path d="M4.22 4.22l1.42 1.42"></path><path d="M18.36 18.36l1.42 1.42"></path><path d="M1 12h2"></path><path d="M21 12h2"></path><path d="M4.22 19.78l1.42-1.42"></path><path d="M18.36 5.64l1.42-1.42"></path></svg>'
+          : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>';
+      }
+
+      function apply(mode) {
+        root.setAttribute('data-theme', mode);
+        btn.innerHTML = icon(mode);
+        btn.setAttribute('aria-label', mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+      }
+
+      apply(theme);
+      btn.addEventListener('click', function () {
+        theme = theme === 'dark' ? 'light' : 'dark';
+        apply(theme);
+      });
+    }());
+  </script>
+</body>
+</html>
