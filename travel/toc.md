@@ -1,1 +1,1 @@
-[April 11, 2026 -- Trip to Cartagena](travel/cartagena.html)
+[April 11, 2026 -- Trip to Cartagena](/cartagena.html)
